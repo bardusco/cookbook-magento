@@ -1,0 +1,66 @@
+= DESCRIPTION:
+
+Cookbook for deploying Magento.
+
+This README needs some love, and is most likely out of date.
+
+This cookbook makes a few assumptions...
+
+- You deploy from a code repository. No generic installation from community tarball. (If you want vanilla community edition you can use the Magento mirror at https://github.com/LokeyCoding/magento-mirror.git)
+- You have an entire Magento codebase in your repository. No Modman. I'd be happy to pull in additional Modman functionality if separated into a separate recipe.
+
+= REQUIREMENTS:
+
+== Platform:
+
+Tested on Ubuntu 10.04
+
+== Cookbooks:
+
+Opscode cookbooks:
+
+* mysql
+* php
+* apache2
+* opensssl
+
+== Libraries:
+
+The openssl library is required from the openssl cookbook to generate secure passwords.
+
+= ATTRIBUTES:
+
+* magento[:alias] - An array of hostname alias.
+* magento[:dir] - The Magento installation directory.
+* magento[:db][:host] - The Magento database host.
+* magento[:db][:database] - The Magento database.
+* magento[:db][:username] - The database username.
+* magento[:db][:password] - The database password. Defaults to a random secure pass.
+* magento[:db][:prefix] - The database table prefix. Defaults to no prefix.
+* magento[:session][:save] - The Magento session storage strategy.
+* magento[:locale] - The local code.
+* magento[:timezone] - The timezone.
+* magento[:default_currency] - The default currency.
+* magento[:skip_url_validation] - Yes skips validation on installation.
+* magento[:use_rewrites] - Yes uses rewrites rather than index.php/url
+* magento[:use_secure] - Yes uses HTTPS in frontend.
+* magento[:use_secure_admin] - Yes uses HTTPS for admin backend.
+* magento[:admin][:frontname] - Frontname for the admin backend.
+* magento[:admin][:firstname] - Admin user firstname when running installer.
+* magento[:admin][:lastname] - Admin user lastname when running installer.
+* magento[:admin][:email] - Admin user email when running installer.
+* magento[:admin][:username] = Admin user login.
+* magento[:admin][:password] = Admin user password.
+* magento[:keys][:enckey] - The Magento encryption key.
+* magento[:developer_mode] - Sets the Magento developer mode in Apache config. 1/0
+* magento[:enable_profiler] - Enables Magento profiling in Apache config. 1/0
+* magento[:sample_data][:url] - Url to Magento sample data.
+* magento[:sample_data][:checksum] - Checksum of Magento sample data Url.
+
+The random generation is handled with the secure_password method in the openssl cookbook which is a cryptographically secure random generator and not predictable like the random method in the ruby standard library.
+
+
+
+= LICENSE and AUTHOR:
+Copyright:: 2011, Guidance Solutions, Inc.
+Author:: Ticean Bennett <tbenn@guidance.com>

@@ -1,0 +1,25 @@
+#!/bin/bash
+php -f <%= @deploy_to %>/current/install.php -- \
+--license_agreement_accepted "yes" \
+--locale "<%= @locale %>" \
+--timezone "<%= @timezone %>" \
+--default_currency "<%= @default_currency %>" \
+--db_host "<%= @host %>" \
+--db_name "<%= @database %>" \
+--db_user "<%= @username %>" \
+--db_pass "<%= @password %>" \
+--db_prefix "<%= @prefix %>" \
+--session_save "<%= @session_save %>" \
+--admin_frontname "<%= @admin_frontname %>" \
+--url "http://<%= @server_name %>/" \
+--skip_url_validation \
+--use_rewrites "<%= @use_rewrites %>" \
+--use_secure "<%= @use_secure %>" \
+--use_secure_admin "<%= @use_secure_admin %>" \
+--secure_base_url "https://<%= @server_name %>/" \
+--admin_firstname "<%= @admin_firstname %>" \
+--admin_lastname "<%= @admin_lastname %>" \
+--admin_email "<%= @admin_email %>" \
+--admin_username "<%= @admin_username %>" \
+--admin_password "<%= @admin_password %>" \
+--encryption_key "<%= @enc_key %>"

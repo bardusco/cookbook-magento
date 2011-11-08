@@ -1,0 +1,8 @@
+-- Created by Chef.
+-- Changes to this file will be overwritten.
+
+GRANT ALL ON <%= @database %>.* TO '<%= @user %>'@'%' IDENTIFIED BY '<%= @password %>';
+
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= node[:mysql][:server_root_password] %>');
+
+FLUSH PRIVILEGES;
