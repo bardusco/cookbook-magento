@@ -22,32 +22,20 @@ user "#{node[:magento][:user]}" do
   system true
 end
 
-directory node[:magento][:dir] do
-  owner node[:magento][:user]
-  group node[:magento][:group]
-  mode '0755'
-  recursive true
+Array[node[:magento][:dir], "#{node[:magento][:dir]}/shared", "#{node[:magento][:dir]}/shared/app/etc",
+  "#{node[:magento][:dir]}/shared/var"].each do |dir|
+  directory dir do
+    owner node[:magento][:user]
+    group node[:magento][:group]
+    mode '0755'
+  end
 end
-
-directory "#{node[:magento][:dir]}/shared" do
-  owner node[:magento][:user]
-  group node[:magento][:group]
-  mode '0755'
-  recursive true
-end
-
-directory "#{node[:magento][:dir]}/shared/app/etc" do
-end
-
-directory "#{node[:magento][:dir]}/shared/var" do
-end
-
 
 %w{media var/import var/export}.each do |dir|
   directory "#{node[:magento][:dir]}/shared/#{dir}" do
     owner node[:magento][:user]
     group node[:magento][:group]
-    mode '0775'
+    mode '2775'
     recursive true
   end
 end
@@ -103,4 +91,14 @@ deploy_revision "#{node[:magento][:dir]}" do
   symlink_before_migrate({
     "app/etc/local.xml" => "app/etc/local.xml"
   })
+  before_symlink do
+    %w{media var/import var/export}.each do |dir|
+      directory "#{node[:magento][:dir]}/shared/#{dir}" do
+        owner node[:magento][:user]
+        group node[:magento][:group]
+        mode '2775'
+        recursive true
+      end
+    end
+  end
 end
