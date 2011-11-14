@@ -37,24 +37,19 @@ directory "#{node[:magento][:dir]}/shared" do
 end
 
 directory "#{node[:magento][:dir]}/shared/app/etc" do
-  owner node[:magento][:user]
-  group node[:magento][:group]
-  mode '0755'
-  recursive true
 end
 
 directory "#{node[:magento][:dir]}/shared/var" do
-  owner node[:magento][:user]
-  group node[:magento][:group]
-  mode '0755'
-  recursive true
 end
 
-directory "#{node[:magento][:dir]}/shared/media" do
-  owner node[:magento][:user]
-  group node[:magento][:group]
-  mode '0755'
-  recursive true
+
+%w{media var/import var/export}.each do |dir|
+  directory "#{node[:magento][:dir]}/shared/#{dir}" do
+    owner node[:magento][:user]
+    group node[:magento][:group]
+    mode '0775'
+    recursive true
+  end
 end
 
 file "#{node[:magento][:dir]}/shared/app/etc/local.xml" do
