@@ -43,7 +43,7 @@ end
 file "#{node[:magento][:dir]}/shared/app/etc/local.xml" do
   owner node[:magento][:user]
   group node[:magento][:group]
-  mode '0644'
+  mode '0640'
 end
 
 
