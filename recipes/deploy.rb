@@ -22,7 +22,7 @@ user "#{node[:magento][:user]}" do
   system true
 end
 
-Array[node[:magento][:dir], "#{node[:magento][:dir]}/shared", "#{node[:magento][:dir]}/shared/app/etc",
+Array[node[:magento][:dir], "#{node[:magento][:dir]}/shared", "#{node[:magento][:dir]}/shared/app", "#{node[:magento][:dir]}/shared/app/etc",
   "#{node[:magento][:dir]}/shared/var"].each do |dir|
   directory dir do
     owner node[:magento][:user]
