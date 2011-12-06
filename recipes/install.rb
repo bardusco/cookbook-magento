@@ -26,6 +26,12 @@ else
   url = node.fqdn
 end
 
+if node.run_list.include?("recipe[magento::deploy]")
+  site_root = "#{node[:magento][:dir]}/current"
+else
+  site_root = node[:magento][:dir]
+end
+
 #Create passwords.
 node.set_unless[:magento][:admin][:password] = secure_password
 node.set_unless[:magento][:enckey] = secure_password
@@ -69,7 +75,7 @@ template "#{Chef::Config[:file_cache_path]}/install" do
   variables(
         :server_name        => url,
         :server_aliases     => node[:magento][:server_aliases],
-        :deploy_to          => node[:magento][:dir],
+        :deploy_to          => site_root,
         :host               => node[:magento][:db][:host],
         :database           => node[:magento][:db][:database],
         :username           => node[:magento][:db][:username],
