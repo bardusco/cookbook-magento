@@ -3,7 +3,7 @@ maintainer_email "tbenn@guidance.com"
 license          "Apache 2.0"
 description      "Chef cookbook for configuring Magento."
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version          "0.6.3"
+version          "0.6.4"
 depends          "php"
 depends          "apache2"
 depends          "mysql"
